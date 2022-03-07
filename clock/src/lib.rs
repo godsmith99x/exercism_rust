@@ -18,9 +18,9 @@ impl fmt::Display for Clock {
 impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Self {
         let m: i32 = minutes.rem_euclid(MINS_IN_HOUR);
-        let m_roll_over: f64 = minutes as f64 / MINS_IN_HOUR as f64;
+        let m_roll_over: i32 = minutes.div_euclid(MINS_IN_HOUR);
 
-        let h: i32 = (hours as f64 + m_roll_over).rem_euclid(HOURS_IN_DAY as f64) as i32;
+        let h: i32 = (hours + m_roll_over).rem_euclid(HOURS_IN_DAY);
 
         Self {
             hours: h,
