@@ -1,6 +1,12 @@
 pub fn annotate(minefield: &[&str]) -> Vec<String> {
-    let ans = minefield.iter().map(|&r| r.to_string()).collect::<Vec<_>>();
-    ans
+    //1. Convert input into a 2D vector
+    let working_vec = create_2d_vec(minefield);
+
+    //2. Search each cell of the 2D array for "*"s and record their indices
+    let mine_locations = locate_mines(working_vec);
+
+    //3. Calculate the neighbor indicies for each mine
+
 }
 
 fn create_2d_vec(input: &[&str]) -> Vec<Vec<char>> {
@@ -12,4 +18,19 @@ fn create_2d_vec(input: &[&str]) -> Vec<Vec<char>> {
         }
 
     temp_vec
+}
+
+fn locate_mines(working_vec: Vec<Vec<char>>) -> Vec<(i32, i32)> {
+
+    let mut mine_indicies: Vec<(i32, i32)> = Vec::new();
+
+    for (row, vector) in working_vec.iter().enumerate() {
+        for (column, character) in vector.iter().enumerate() {
+            if character == &'*' {
+                mine_indicies.push((row as i32, column as i32));
+            }
+        }
+    }
+
+    mine_indicies
 }

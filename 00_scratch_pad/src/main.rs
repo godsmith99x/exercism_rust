@@ -1,6 +1,7 @@
+#[allow(unused_variables)]
 
 fn main() {
-    let test_case: &[&str] = &[
+    let test_case1: &[&str] = &[
         "111",
         "1*1",
         "111",
@@ -12,16 +13,48 @@ fn main() {
         "   ",
     ];
 
+    let test_case3: &[&str] = &[
+        "   ",
+        "   ",
+        "   ",
+    ];
+
+    let test_case4: &[&str] = &[
+    ];
+
     fn create_2d_vec(input: &[&str]) -> Vec<Vec<char>> {
-        let mut workspace: Vec<Vec<_>> = Vec::new();
+        let mut temp_vec: Vec<Vec<_>> = Vec::new();
 
         for row in input {
             let row_array: Vec<char> = row.chars().collect();
-            workspace.push(row_array);
+            temp_vec.push(row_array);
             }
 
-        workspace
+        temp_vec
     }
 
-    println!("{:#?}", create_2d_vec(test_case))
+    let working_case1 = create_2d_vec(test_case1);
+    let working_case2 = create_2d_vec(test_case2);
+    let working_case3 = create_2d_vec(test_case3);
+    let working_case4 = create_2d_vec(test_case4);
+
+    fn locate_mines(working_vec: Vec<Vec<char>>) -> Vec<(i32, i32)> {
+
+        let mut mine_indicies: Vec<(i32, i32)> = Vec::new();
+
+        for (row, vector) in working_vec.iter().enumerate() {
+            for (column, character) in vector.iter().enumerate() {
+                if character == &'*' {
+                    mine_indicies.push((row as i32, column as i32));
+                }
+            }
+        }
+
+        mine_indicies
+    }
+
+    println!("{:#?} \n", locate_mines(working_case1));
+    // println!("{:#?} \n", working_case2);
+    // println!("{:#?} \n", working_case3);
+    // println!("{:#?} \n", working_case4);
 }
