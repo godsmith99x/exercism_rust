@@ -53,6 +53,20 @@ fn main() {
         mine_indicies
     }
 
+    let working_case_mines = locate_mines(working_case1);
+
+    fn calculate_neighbors(mine_index: (i32, i32)) -> Vec<(i32, i32)> {
+
+        let mut neighbor_template: Vec<(i32, i32)> = vec![(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)];
+
+        let neighbors_working = neighbor_template.iter().map(|&t| );
+
+    }
+
+    // fn locate_neighbors(mine_indicies: Vec<(i32, i32)>) -> Vec<(i32, i32)> {
+    //     unimplemented!()
+    // }
+
     println!("{:#?} \n", locate_mines(working_case1));
     // println!("{:#?} \n", working_case2);
     // println!("{:#?} \n", working_case3);
