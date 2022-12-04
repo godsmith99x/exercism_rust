@@ -2,12 +2,10 @@
 
 fn main() {
     let test_case1: &[&str] = &["111", "1*1", "111"];
-
     let test_case2: &[&str] = &["   ", " * ", "   "];
-
     let test_case3: &[&str] = &["   ", "   ", "   "];
-
     let test_case4: &[&str] = &[];
+    let test_case5: &[&str] = &[" * ", "  *", "*  ", " * "];
 
     fn create_2d_vec(input: &[&str]) -> Vec<Vec<char>> {
         let mut temp_vec: Vec<Vec<_>> = Vec::new();
@@ -20,12 +18,23 @@ fn main() {
         temp_vec
     }
 
-    let working_case1 = create_2d_vec(test_case1);
-    let working_case2 = create_2d_vec(test_case2);
-    let working_case3 = create_2d_vec(test_case3);
-    let working_case4 = create_2d_vec(test_case4);
+    let working_case1: Vec<Vec<char>> = create_2d_vec(test_case1);
+    let working_case2: Vec<Vec<char>> = create_2d_vec(test_case2);
+    let working_case3: Vec<Vec<char>> = create_2d_vec(test_case3);
+    let working_case4: Vec<Vec<char>> = create_2d_vec(test_case4);
+    let working_case5: Vec<Vec<char>> = create_2d_vec(test_case5);
 
-    fn locate_mines(working_vec: Vec<Vec<char>>) -> Vec<(i32, i32)> {
+    fn find_row_len(working_vec: &Vec<Vec<char>>) -> i32 {
+        let row_len: i32 = working_vec[0].len() as i32;
+        row_len
+    }
+
+    fn find_col_len(working_vec: &Vec<Vec<char>>) -> i32 {
+        let col_len: i32 = working_vec.iter().count() as i32;
+        col_len
+    }
+
+    fn locate_mines(working_vec: &Vec<Vec<char>>) -> Vec<(i32, i32)> {
         let mut mine_indicies: Vec<(i32, i32)> = Vec::new();
 
         for (row, vector) in working_vec.iter().enumerate() {
@@ -39,7 +48,9 @@ fn main() {
         mine_indicies
     }
 
-    let mine_points = locate_mines(working_case1);
+    let row_len: i32 = find_row_len(&working_case5);
+    let col_len: i32 = find_col_len(&working_case5);
+    let mine_points = locate_mines(&working_case5);
 
     fn add_indicies(point1: &(i32, i32), point2: &(i32, i32)) -> (i32, i32) {
         let row_translation = point1.0 + point2.0;
@@ -79,6 +90,8 @@ fn main() {
         neighbors_vec
     }
 
+    println!("{:#?} \n", row_len);
+    println!("{:#?} \n", col_len);
     println!("{:#?} \n", locate_neighbors(mine_points));
     // println!("{:#?} \n", working_case2);
     // println!("{:#?} \n", working_case3);
