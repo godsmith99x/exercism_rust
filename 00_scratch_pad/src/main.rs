@@ -79,20 +79,21 @@ fn main() {
         neighbors_working
     }
 
-    fn locate_neighbors(mine_indicies: Vec<(i32, i32)>) -> Vec<(i32, i32)> {
+    fn locate_neighbors(mine_indicies: Vec<(i32, i32)>, row_len: &i32, col_len: &i32) -> Vec<(i32, i32)> {
         let mut neighbors_vec: Vec<(i32, i32)> = Vec::new();
 
-        for mine_index in mine_indicies {
-            let mut neighbors = calculate_neighbors(mine_index);
-            neighbors_vec.append(&mut neighbors);
-        }
+        let valid_neighbors = mine_indicies.iter().filter(||);
+        // for mine_index in mine_indicies {
+        //     let mut neighbors = calculate_neighbors(mine_index);
+        //     neighbors_vec.append(&mut neighbors);
+        // }
 
         neighbors_vec
     }
 
     println!("{:#?} \n", row_len);
     println!("{:#?} \n", col_len);
-    println!("{:#?} \n", locate_neighbors(mine_points));
+    println!("{:#?} \n", locate_neighbors(mine_points, &row_len, &col_len));
     // println!("{:#?} \n", working_case2);
     // println!("{:#?} \n", working_case3);
     // println!("{:#?} \n", working_case4);
