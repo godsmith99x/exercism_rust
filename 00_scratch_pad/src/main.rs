@@ -7,6 +7,7 @@ fn main() {
     let test_case4: &[&str] = &[];
     let test_case5: &[&str] = &[" * ", "  *", "*  ", " * "];
 
+    //1. Convert input into a 2D vector
     fn create_2d_vec(input: &[&str]) -> Vec<Vec<char>> {
         let mut temp_vec: Vec<Vec<_>> = Vec::new();
 
@@ -24,16 +25,8 @@ fn main() {
     let working_case4: Vec<Vec<char>> = create_2d_vec(test_case4);
     let working_case5: Vec<Vec<char>> = create_2d_vec(test_case5);
 
-    fn find_row_len(working_vec: &Vec<Vec<char>>) -> i32 {
-        let row_len: i32 = working_vec[0].len() as i32;
-        row_len
-    }
 
-    fn find_col_len(working_vec: &Vec<Vec<char>>) -> i32 {
-        let col_len: i32 = working_vec.iter().count() as i32;
-        col_len
-    }
-
+    //2. Search each cell of the 2D array for "*"s and record their indices
     fn locate_mines(working_vec: &Vec<Vec<char>>) -> Vec<(i32, i32)> {
         let mut mine_indicies: Vec<(i32, i32)> = Vec::new();
 
@@ -48,9 +41,21 @@ fn main() {
         mine_indicies
     }
 
+    let mine_points = locate_mines(&working_case5);
+
+    //3. Calculate the neighbor indicies for each mine
+    fn find_row_len(working_vec: &Vec<Vec<char>>) -> i32 {
+        let row_len: i32 = working_vec[0].len() as i32;
+        row_len
+    }
+
+    fn find_col_len(working_vec: &Vec<Vec<char>>) -> i32 {
+        let col_len: i32 = working_vec.iter().count() as i32;
+        col_len
+    }
+
     let row_len: i32 = find_row_len(&working_case5);
     let col_len: i32 = find_col_len(&working_case5);
-    let mine_points = locate_mines(&working_case5);
 
     fn add_indicies(point1: &(i32, i32), point2: &(i32, i32)) -> (i32, i32) {
         let row_translation = point1.0 + point2.0;
