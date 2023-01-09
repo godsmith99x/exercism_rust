@@ -41,30 +41,20 @@ fn main() {
         mine_indicies
     }
 
-    let mine_points = locate_mines(&working_case5);
+    let mine_locations = locate_mines(&working_case5);
 
-    //3. Calculate the neighbor indicies for each mine
-    fn find_row_len(working_vec: &Vec<Vec<char>>) -> i32 {
-        let row_len: i32 = working_vec[0].len() as i32;
-        row_len
-    }
+    //3. Calculate the neighbor coordinates for each mine
 
-    fn find_col_len(working_vec: &Vec<Vec<char>>) -> i32 {
-        let col_len: i32 = working_vec.iter().count() as i32;
-        col_len
-    }
-
-    let row_len: i32 = find_row_len(&working_case5);
-    let col_len: i32 = find_col_len(&working_case5);
-
-    fn add_indicies(point1: &(i32, i32), point2: &(i32, i32)) -> (i32, i32) {
-        let row_translation = point1.0 + point2.0;
-        let col_translation = point1.1 + point2.1;
-        let new_point = (row_translation, col_translation);
-        new_point
-    }
 
     fn calculate_neighbors(mine_index: (i32, i32)) -> Vec<(i32, i32)> {
+
+        fn add_indicies(point1: &(i32, i32), point2: &(i32, i32)) -> (i32, i32) {
+            let row_translation = point1.0 + point2.0;
+            let col_translation = point1.1 + point2.1;
+            let new_point = (row_translation, col_translation);
+            new_point
+        }
+
         let neighbor_template: Vec<(i32, i32)> = vec![
             (-1, -1),
             (-1, 0),
@@ -84,21 +74,34 @@ fn main() {
         neighbors_working
     }
 
-    fn locate_neighbors(mine_indicies: Vec<(i32, i32)>, row_len: &i32, col_len: &i32) -> Vec<(i32, i32)> {
-        let mut neighbors_vec: Vec<(i32, i32)> = Vec::new();
+    // fn locate_neighbors(mine_indicies: Vec<(i32, i32)>, row_len: &i32, col_len: &i32) -> Vec<(i32, i32)> {
+    //     let mut neighbors_vec: Vec<(i32, i32)> = Vec::new();
 
-        let valid_neighbors = mine_indicies.iter().filter(||);
-        // for mine_index in mine_indicies {
-        //     let mut neighbors = calculate_neighbors(mine_index);
-        //     neighbors_vec.append(&mut neighbors);
-        // }
+    //     let valid_neighbors = mine_indicies.iter().filter(||);
+    //     // for mine_index in mine_indicies {
+    //     //     let mut neighbors = calculate_neighbors(mine_index);
+    //     //     neighbors_vec.append(&mut neighbors);
+    //     // }
 
-        neighbors_vec
+    //     neighbors_vec
+    // }
+
+    fn find_row_len(working_vec: &Vec<Vec<char>>) -> i32 {
+        let row_len: i32 = working_vec[0].len() as i32;
+        row_len
     }
+
+    fn find_col_len(working_vec: &Vec<Vec<char>>) -> i32 {
+        let col_len: i32 = working_vec.iter().count() as i32;
+        col_len
+    }
+
+    let row_len: i32 = find_row_len(&working_case5);
+    let col_len: i32 = find_col_len(&working_case5);
 
     println!("{:#?} \n", row_len);
     println!("{:#?} \n", col_len);
-    println!("{:#?} \n", locate_neighbors(mine_points, &row_len, &col_len));
+    println!("{:#?} \n", calculate_neighbors(mine_locations[0]));
     // println!("{:#?} \n", working_case2);
     // println!("{:#?} \n", working_case3);
     // println!("{:#?} \n", working_case4);
