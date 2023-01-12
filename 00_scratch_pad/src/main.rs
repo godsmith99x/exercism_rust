@@ -22,11 +22,20 @@ fn main() {
     let row_len: i32 = find_row_len(&working_case5);
     let col_len: i32 = find_col_len(&working_case5);
 
-    let mut neighbor_cells: Vec<(i32, i32)> = Vec::new();
+    let mut neighbor_cells_calculated: Vec<(i32, i32)> = Vec::new();
 
-    for mine in mine_locations {
+    for mine in &mine_locations {
         let mut neighbors = calculate_neighbors(&mine, &row_len, &col_len);
-        neighbor_cells.append(&mut neighbors);
+        neighbor_cells_calculated.append(&mut neighbors);
+    }
+
+    //4. Remove points in vector of neighor cells that are actually mines
+    let mut neighbor_cells_actual: Vec<(i32, i32)> = Vec::new();
+
+    for point in &neighbor_cells_calculated {
+        if !mine_locations.contains(&point) {
+           neighbor_cells_actual.push(*point);
+        }
     }
 
     // Helper Functions
@@ -75,9 +84,9 @@ fn main() {
     fn is_valid(point: &(i32, i32), row_len: &i32, col_len: &i32) -> bool {
         match point {
             point if point.0 < 0 => false,
-            point if point.0 > *row_len => false,
+            point if point.0 > (*row_len - 1) => false,
             point if point.1 < 0 => false,
-            point if point.1 > *col_len => false,
+            point if point.1 > (*col_len - 1) => false,
             _ => true,
         }
     }
@@ -114,8 +123,8 @@ fn main() {
         neighbors_valid
     }
 
-    // println!("{:#?} \n", row_len);
-    // println!("{:#?} \n", col_len);
+    println!("{:#?} \n", row_len);
+    println!("{:#?} \n", col_len);
     // println!(
     //     "{:#?} \n",
     //     calculate_neighbors(&mine_locations[0], &row_len, &col_len)
@@ -123,5 +132,5 @@ fn main() {
     // println!("{:#?} \n", working_case2);
     // println!("{:#?} \n", working_case3);
     // println!("{:#?} \n", working_case4);
-    println!("{:#?} \n", neighbor_cells);
+    println!("{:#?} \n", neighbor_cells_actual);
 }
